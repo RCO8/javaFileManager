@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import class_.DoingTestClass;
 import inter.*;
 
 //TODO 인덱스 입력 받은거 파일 리스트 인덱스를 못 벗어나게 하는 기능 추가필요
@@ -28,6 +29,8 @@ public class Main {
 		db = new Data();
 		input = 0;
 		
+		doing = new DoingTestClass();
+		
 		/*
 		 * filName = new 클래스이름;
 		 * filDbRange = new 클래스이름;
@@ -44,6 +47,7 @@ public class Main {
 				System.out.println("\t2) 필터");
 				System.out.println("\t3) 정렬");
 				System.out.println("\t4) 처리");
+				System.out.println("\t5) 파일리스트출력");
 			}
 			if(db.rootPath.equals("")) {
 				if(!_input(1,1)) continue;
@@ -56,7 +60,11 @@ public class Main {
 			switch(input) {
 			case 1:
 				System.out.println("폴더 경로를 입력해주세요.");
-				sc.nextLine();
+				
+				//경로 설정 만들것.
+				db.rootPath = sc.nextLine();
+				db.inputFile();
+				//폴더안에있는 파일들을 전부 리스트에 넣어야함.
 				break;
 			case 2:
 				_fillter();
