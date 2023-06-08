@@ -6,6 +6,7 @@ import inter.SortMode;
 public class Sotring implement SortMode
 {
     public void Sort(Data db, int mod, boolean is_lower){
+        int index = 0;  //파일정렬 인덱스
         switch(mod)
         {
             case 1:
