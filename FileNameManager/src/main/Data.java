@@ -18,6 +18,10 @@ public class Data {
 	}
 	
 	public void printFileList() {
-		//여기다 만드세요
+		int c = 0;
+		for(File f : fileList){
+			c+=1;
+			System.out.println(c+" >> "+f.getName());
+		}
 	}
 }
