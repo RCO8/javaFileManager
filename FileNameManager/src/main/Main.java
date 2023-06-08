@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 import class_.DoingTestClass;
+import class_.FillterExtenTestClass;
 import inter.*;
 
 //TODO 인덱스 입력 받은거 파일 리스트 인덱스를 못 벗어나게 하는 기능 추가필요(변경 완료)
@@ -30,6 +31,7 @@ public class Main {
 		input = 0;
 		
 		doing = new DoingTestClass();
+		filExten = new FillterExtenTestClass();
 		
 		/*
 		 * filName = new 클래스이름;
@@ -276,7 +278,7 @@ public class Main {
 		while(true) {
 			System.out.println("확장자를 기준으로");
 			System.out.println("\t1) 입력된 확장자 파일만 남기기");
-			System.out.println("\t2) 입력된 확장자 파만 빼기");
+			System.out.println("\t2) 입력된 확장자 파일만 빼기");
 			System.out.println("\t3) 돌아가기");
 			if(!_input(1,3)) continue;
 			
