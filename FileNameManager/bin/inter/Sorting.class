@@ -1,0 +1,24 @@
+package inter;
+
+import main.Data;
+import inter.SortMode;
+
+public class Sotring implement SortMode
+{
+    public void Sort(Data db, int mod, boolean is_lower){
+        switch(mod)
+        {
+            case 1:
+            //1. 이름순
+            break;
+            case 2:
+            //2. 날짜순
+            break;
+            default:
+            //돌아가기
+            break;
+        }
+
+        
+    }
+}
