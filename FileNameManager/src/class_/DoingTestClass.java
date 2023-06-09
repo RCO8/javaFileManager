@@ -202,9 +202,8 @@ public class DoingTestClass implements Doing{
 
       for(Vector<File> vf: f_hyliky){
         	while(vf.size() > 1){//파일 묶음이 하나가 남을때 까지 제거
-				
-			
 			System.out.println("크기" + vf.size()+ " " + vf.get(1).getName() + "지움");
+			db.fileList.remove(vf.get(1));
             vf.get(1).delete();
 			vf.remove(1);
          }
