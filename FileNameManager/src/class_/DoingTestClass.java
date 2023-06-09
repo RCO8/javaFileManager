@@ -153,9 +153,19 @@ public class DoingTestClass implements Doing{
                else if(tempName.matches("*( [0-9] )*")) is_copy += 1;
                else if(tempName.matches("*([0-9])*")) is_copy += 1;
             }
+
+			else if(Name.matches(tempName)){
+               if(Name.split("-")[1].equals(" 복사본")) is_copy += 1;
+               else if(Name.split(" ")[1].equals(" 복사본")) is_copy += 1;
+               else if(Name.split("-")[1].equals(" 사본")) is_copy += 1;
+               else if(Name.split(" ")[1].equals(" 사본")) is_copy += 1;
+               else if(Name.matches("*( [0-9] )*")) is_copy += 1;
+               else if(Name.matches("*([0-9])*")) is_copy += 1;
+            }
             //원본 이름이 포함되어 있으면서, 뒤에 복사본 혹은 (n) 이 붙어있을 경우 +1
 
-            if(f_size >= vf.get(0).length() && f_size <= vf.get(0).length() + 255 * 2) is_copy += 1; 
+            if(f_size <= vf.get(0).length() && f_size + 255 * 2 > vf.get(0).length()) is_copy += 1; 
+			else if(vf.get(0).length() <= f_size && vf.get(0).length() + 255 * 2 > f_size) is_copy += 1; 
             //크기가 얼추 맞다면 이름의 최대 길이 255글자가 각각 1~4바이트라고 했을 때 파일 용량에 이름이 포함될 경우 +1
 
             if(is_copy >= 3 && !is_pushed){
