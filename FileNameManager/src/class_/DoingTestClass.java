@@ -20,6 +20,7 @@ public class DoingTestClass implements Doing{
 		String date;
 		long dm;
 		int startIndex;
+		Vector<File> newFileList = new Vector<>(db.fileList.size());
 		if (db.fileList.size() == 0) {
 			return;
 		}
@@ -36,7 +37,6 @@ public class DoingTestClass implements Doing{
 			}
 			if (temp.contains("[d]")) {
 				dm = db.fileList.get(i).lastModified();
-				
 				date = new Date(dm).toString().trim();
 				System.out.println("1차 :" + date);
 				startIndex = date.indexOf("KST");
@@ -53,6 +53,7 @@ public class DoingTestClass implements Doing{
 				System.out.println();
 				if(db.fileList.get(i).renameTo(nfile)){
 					System.out.println("바뀌었습니다!");
+					newFileList.add(nfile);
 				}
 				else{
 					System.out.println("바뀌지 않았습니다!!1");
@@ -60,6 +61,8 @@ public class DoingTestClass implements Doing{
 				
 			}
 		}
+
+		db.fileList = newFileList;
 	}
 
 	@Override
@@ -71,6 +74,7 @@ public class DoingTestClass implements Doing{
                     boolean deleted = db.fileList.get(i).delete();
                     if (deleted) {
                         System.out.println("파일 삭제 성공: " + db.fileList.get(i).getName());
+						db.fileList.remove(i);
                     } else {
                         System.out.println("파일 삭제 실패: " + db.fileList.get(i).getName());
                     }
@@ -81,6 +85,7 @@ public class DoingTestClass implements Doing{
 
 	@Override
 	public void doingDivision(Data db) {
+		Vector<File> newFileList = new Vector<>(db.fileList.size());
 		for (int i = 0; i < db.fileList.size(); i++){
 			if (db.fileList != null) {
 						// 파일의 확장자 가져오기
@@ -93,6 +98,7 @@ public class DoingTestClass implements Doing{
 								boolean created = destinationDirectory.mkdir();
 								if (created) {
 									System.out.println("폴더 생성: " + destinationDirectory.getName());
+									newFileList.add(destinationDirectory);
 								} else {
 									System.out.println("폴더 생성 실패: " + destinationDirectory.getName());
 									continue;
@@ -110,11 +116,15 @@ public class DoingTestClass implements Doing{
 								System.out.println("파일 이동 실패: " + db.fileList.get(i).getName());
 								e.printStackTrace();
 							}
-				}
+						}
+						else{
+							newFileList.add(db.fileList.get(i));
+						}
 			}
 					
-				
+			
 		}
+		db.fileList = newFileList;
 	}
         
     
@@ -148,18 +158,24 @@ public class DoingTestClass implements Doing{
             int is_copy = 0;
             if(vf.get(0).getName().split("\\.")[1].equals(ext)) is_copy += 1; //확장자가 같으면 +1
             String tempName = vf.get(0).getName().split("\\.")[0];
-            if(tempName.contains(Name.split(" ")[1])){
+			int is_name_similer = 1;
+			for(String s:Name.split(" ")){
+				if(tempName.contains(s)){
+					is_name_similer += 1;
+				}
+			}
+            if(is_name_similer >= Name.split(" ").length){
                if(tempName.contains("복사본")) is_copy += 1;
                else if(tempName.contains("사본")) is_copy += 1;
-               else if(tempName.matches(".*( [0-9] ).*")) is_copy += 1;
-               else if(tempName.matches(".*([0-9]).*")) is_copy += 1;
+               else if(tempName.matches(".*( [0-999] ).*")) is_copy += 1;
+               else if(tempName.matches(".*([0-999]).*")) is_copy += 1;
             }
-			else if(Name.contains(tempName.split(" ")[1])){
-               if(Name.contains("복사본")) is_copy += 1;
-               else if(Name.contains("사본")) is_copy += 1;
-               else if(Name.matches(".*( [0-9] ).*")) is_copy += 1;
-               else if(Name.matches(".*([0-9]).*")) is_copy += 1;
-            }
+			// else if(Name.contains(tempName.split(" ")[0])){
+            //    if(Name.contains("복사본")) is_copy += 1;
+            //    else if(Name.contains("사본")) is_copy += 1;
+            //    else if(Name.matches(".*( [0-999] ).*")) is_copy += 1;
+            //    else if(Name.matches(".*([0-999]).*")) is_copy += 1;
+            // }
             //원본 이름이 포함되어 있으면서, 뒤에 복사본 혹은 (n) 이 붙어있을 경우 +1
             if(f_size <= vf.get(0).length() && f_size + 255 * 2 > vf.get(0).length()) is_copy += 1; 
 			else if(vf.get(0).length() <= f_size && vf.get(0).length() + 255 * 2 > f_size) is_copy += 1; 
