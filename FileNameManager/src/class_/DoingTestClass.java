@@ -20,6 +20,7 @@ public class DoingTestClass implements Doing{
 		String date;
 		long dm;
 		int startIndex;
+		Vector<File> newFileList = new Vector<>(db.fileList.size());
 		if (db.fileList.size() == 0) {
 			return;
 		}
@@ -31,12 +32,13 @@ public class DoingTestClass implements Doing{
 			System.out.println("0차 :" + number + "확장자 : " + extension);
 			if(extension != null){
 			if (temp.contains("[n]")) {
-				fileName = temp.replace("[n]", i + "");
+				fileName = temp.replace("[n]", i + " ");
 				System.out.println("1차 :" + fileName + " "+ i);
 			}
 			if (temp.contains("[d]")) {
 				dm = db.fileList.get(i).lastModified();
 				date = new Date(dm).toString().trim();
+				System.out.println("1차 :" + date);
 				startIndex = date.indexOf("KST");
 				date = date.substring(0, startIndex);
 				date = date.replace(":", "");
@@ -51,6 +53,7 @@ public class DoingTestClass implements Doing{
 				System.out.println();
 				if(db.fileList.get(i).renameTo(nfile)){
 					System.out.println("바뀌었습니다!");
+					newFileList.add(nfile);
 				}
 				else{
 					System.out.println("바뀌지 않았습니다!!1");
@@ -58,27 +61,35 @@ public class DoingTestClass implements Doing{
 				
 			}
 		}
+
+		db.fileList = newFileList;
 	}
 
 	@Override
 	public void doingRemoveAll(Data db) {
 		// TODO Auto-generated method stub
+		Vector<File> newFileList = new Vector<>(db.fileList.size());
 		if (db.rootPath != null) {
             for (int i = 0; i < db.fileList.size(); i++)  {
                 if (db.fileList.get(i).isFile()) {
                     boolean deleted = db.fileList.get(i).delete();
                     if (deleted) {
                         System.out.println("파일 삭제 성공: " + db.fileList.get(i).getName());
+						newFileList.add(db.fileList.get(i));
                     } else {
                         System.out.println("파일 삭제 실패: " + db.fileList.get(i).getName());
                     }
                 }
             }
+			for(File f : newFileList){
+				db.fileList.remove(f);
+			}
         }
 	}
 
 	@Override
 	public void doingDivision(Data db) {
+		Vector<File> newFileList = new Vector<>(db.fileList.size());
 		for (int i = 0; i < db.fileList.size(); i++){
 			if (db.fileList != null) {
 						// 파일의 확장자 가져오기
@@ -91,6 +102,7 @@ public class DoingTestClass implements Doing{
 								boolean created = destinationDirectory.mkdir();
 								if (created) {
 									System.out.println("폴더 생성: " + destinationDirectory.getName());
+									newFileList.add(destinationDirectory);
 								} else {
 									System.out.println("폴더 생성 실패: " + destinationDirectory.getName());
 									continue;
@@ -108,11 +120,15 @@ public class DoingTestClass implements Doing{
 								System.out.println("파일 이동 실패: " + db.fileList.get(i).getName());
 								e.printStackTrace();
 							}
-				}
+						}
+						else{
+							newFileList.add(db.fileList.get(i));
+						}
 			}
 					
-				
+			
 		}
+		db.fileList = newFileList;
 	}
         
     
@@ -133,51 +149,55 @@ public class DoingTestClass implements Doing{
       //복사된 파일 감지한 후 지우기
       Vector<Vector<File>> f_hyliky = new Vector<>(db.fileList.size()); //복사본끼리 모은 파일 묶음
       for(File f : db.fileList){
-         String ext = f.getName().split(".")[1]; //확장자
-         String Name = f.getName().split(".")[0]; //이름
+		 String [] nameandext = f.getName().split("\\.");
+		 if(nameandext.length <= 1) continue;
+         String ext = nameandext[1]; //확장자
+
+         String Name = nameandext[0]; //이름
          long f_size = f.length(); //크기
          long f_date = f.lastModified(); //마지막 수정날짜
          boolean is_pushed = false;
 
          for(Vector<File> vf:f_hyliky){
             int is_copy = 0;
-            if(vf.get(0).getName().split(".")[1].equals(ext)) is_copy += 1; //확장자가 같으면 +1
-
-            String tempName = vf.get(0).getName().split(".")[0];
-
-            if(tempName.matches(Name)){
-               if(tempName.split("-")[1].equals(" 복사본")) is_copy += 1;
-               else if(tempName.split(" ")[1].equals(" 복사본")) is_copy += 1;
-               else if(tempName.split("-")[1].equals(" 사본")) is_copy += 1;
-               else if(tempName.split(" ")[1].equals(" 사본")) is_copy += 1;
-               else if(tempName.matches("*( [0-9] )*")) is_copy += 1;
-               else if(tempName.matches("*([0-9])*")) is_copy += 1;
+            if(vf.get(0).getName().split("\\.")[1].equals(ext)) is_copy += 1; //확장자가 같으면 +1
+            String tempName = vf.get(0).getName().split("\\.")[0];
+			int is_name_similer = 1;
+			for(String s:Name.split(" ")){
+				if(tempName.contains(s)){
+					is_name_similer += 1;
+				}
+			}
+            if(is_name_similer >= Name.split(" ").length){
+               if(tempName.contains("복사본")) is_copy += 1;
+               else if(tempName.contains("사본")) is_copy += 1;
+               else if(tempName.matches(".*\\( [0-999] \\).*")) is_copy += 1;
+               else if(tempName.matches(".*\\([0-999]\\).*")) is_copy += 1;
             }
-
-			else if(Name.matches(tempName)){
-               if(Name.split("-")[1].equals(" 복사본")) is_copy += 1;
-               else if(Name.split(" ")[1].equals(" 복사본")) is_copy += 1;
-               else if(Name.split("-")[1].equals(" 사본")) is_copy += 1;
-               else if(Name.split(" ")[1].equals(" 사본")) is_copy += 1;
-               else if(Name.matches("*( [0-9] )*")) is_copy += 1;
-               else if(Name.matches("*([0-9])*")) is_copy += 1;
-            }
+			// else if(Name.contains(tempName.split(" ")[0])){
+            //    if(Name.contains("복사본")) is_copy += 1;
+            //    else if(Name.contains("사본")) is_copy += 1;
+            //    else if(Name.matches(".*( [0-999] ).*")) is_copy += 1;
+            //    else if(Name.matches(".*([0-999]).*")) is_copy += 1;
+            // }
             //원본 이름이 포함되어 있으면서, 뒤에 복사본 혹은 (n) 이 붙어있을 경우 +1
-
             if(f_size <= vf.get(0).length() && f_size + 255 * 2 > vf.get(0).length()) is_copy += 1; 
 			else if(vf.get(0).length() <= f_size && vf.get(0).length() + 255 * 2 > f_size) is_copy += 1; 
             //크기가 얼추 맞다면 이름의 최대 길이 255글자가 각각 1~4바이트라고 했을 때 파일 용량에 이름이 포함될 경우 +1
-
+			
             if(is_copy >= 3 && !is_pushed){
+				System.out.println(""+ f.getName() + " 묶음 집어 넣음 " + vf.get(0).getName());
                is_pushed = true;
                if(vf.get(0).lastModified() < f_date) //어느게 더 오래전파일(원본파일)인지 확인
                   vf.add(f);
+
                else //기존의 대표 파일이 더 최신이면 복제품이므로
                   vf.add(0,f);
             }
          }
 
          if(!is_pushed){ //만약 어느 파일 묶음에도 들어가지 않았다면 묶음을 새로 만듦
+			System.out.println(f.getName() +" 묶음 만듦");
             Vector<File> temp_v = new Vector<>(1);
             temp_v.add(f);
             f_hyliky.add(temp_v);
@@ -185,9 +205,11 @@ public class DoingTestClass implements Doing{
       }
 
       for(Vector<File> vf: f_hyliky){
-         while(vf.size() > 1){ //파일 묶음이 하나가 남을때 까지 제거
+        	while(vf.size() > 1){//파일 묶음이 하나가 남을때 까지 제거
+			System.out.println("크기" + vf.size()+ " " + vf.get(1).getName() + "지움");
+			db.fileList.remove(vf.get(1));
             vf.get(1).delete();
-			
+			vf.remove(1);
          }
       }
    }
