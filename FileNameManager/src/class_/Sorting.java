@@ -2,7 +2,7 @@ package class_;
 
 import main.Data;
 
-import java.io.File;
+import java.io.*;
 import java.util.Comparator;
 
 import inter.SortMode;
@@ -25,35 +25,95 @@ public class Sorting implements SortMode
                 //이름순
                 if(is_lower)    //내림차순
                 {
-                    //만약에 아래 코드를 비교해서 두 파일 인덱스를 바꾼다....
-                    if(0 < sortUpper.compare(db.fileList.get(index), db.fileList.get(index+1)))
+                    while(db.fileList.get(getSize - 1) != null)
                     {
+                        //만약에 아래 코드를 비교해서 두 파일 인덱스를 바꾼다....
+                        if(0 < sortUpper.compare(db.fileList.get(index), db.fileList.get(index+1)))
+                        {
+                            if(fileTmp == null){
+                            SwapFile(fileTmp, db.fileList.get(index));
+                            SwapFile(db.fileList.get(index), db.fileList.get(index+1));
+                            SwapFile(db.fileList.get(index+1), fileTmp);
+                            }
+                        }
+                        index++;
                     }
-                    
                 }
                 else   //오름차순
                 { 
-                    sortLower.compare(db.fileList.get(index), db.fileList.get(index+1));
-
+                    while(db.fileList.get(getSize - 1) != null)
+                    {
+                        //만약에 아래 코드를 비교해서 두 파일 인덱스를 바꾼다....
+                        if(0 < sortLower.compare(db.fileList.get(index), db.fileList.get(index+1)))
+                        {
+                            if(fileTmp == null){
+                            SwapFile(fileTmp, db.fileList.get(index));
+                            SwapFile(db.fileList.get(index), db.fileList.get(index+1));
+                            SwapFile(db.fileList.get(index+1), fileTmp);
+                            }
+                        }
+                        index++;
+                    }
                 }
                 break;
             case 2:
                 //날짜순
                 if(is_lower)    //내림차순
                 {
-                        sortOlder.compare(db.fileList.get(index), db.fileList.get(index+1));
+                    while(db.fileList.get(getSize - 1) != null)
+                    {
+                        if(0 < sortOlder.compare(db.fileList.get(index), db.fileList.get(index+1)))
+                        {
+                            if(fileTmp == null){
+                                SwapFile(fileTmp, db.fileList.get(index));
+                                SwapFile(db.fileList.get(index), db.fileList.get(index+1));
+                                SwapFile(db.fileList.get(index+1), fileTmp);
+                            }
+                        }
                         index++;
+                    }
                 }
                 else    //오름차순
                 {
-                        sortNewer.compare(db.fileList.get(index), db.fileList.get(index+1));
-                        index++;
+                    while(db.fileList.get(getSize - 1) != null)
+                    {
+                    if(0 < sortNewer.compare(db.fileList.get(index), db.fileList.get(index+1)))
+                    {
+                        if(fileTmp == null){
+                            SwapFile(fileTmp, db.fileList.get(index));
+                            SwapFile(db.fileList.get(index), db.fileList.get(index+1));
+                            SwapFile(db.fileList.get(index+1), fileTmp);
+                        }
+                    }
+                    index++;
+                    }
                 }
             break;
             default:
             //돌아가기
             break;
         }
+    }
+
+    private File SwapFile(File a, File b)
+    {
+        try{
+            FileWriter replaceFile = new FileWriter(a, false);
+            BufferedReader copyFile = new BufferedReader(new FileReader(b));
+
+            String str;
+            while ((str = copyFile.readLine()) != null) {
+                replaceFile.write(str);
+            }
+            replaceFile.close();
+            copyFile.close();
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+            a = null;
+        }
+        return a;
     }
 
     //오래된 순
