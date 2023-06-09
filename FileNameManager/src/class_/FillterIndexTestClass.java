@@ -17,7 +17,7 @@ public class FillterIndexTestClass implements FillterIndex {
 
 		//최소 인덱스 ~ 최대 인덱스 사이의 범위를 삭제
 		for (int i = 0; i < fileList.size(); i++) {
-            if (i < fIndex || i > lIndex) {
+            if (i < fIndex - 1 || i > lIndex - 1) {
                 filteredList.add(fileList.get(i));
             }
         }
@@ -40,7 +40,7 @@ public class FillterIndexTestClass implements FillterIndex {
 		Vector<File> fileList = db.fileList;
 
 		//최소 인덱스 ~ 최대 인덱스 사이의 범위를 제외하고 삭제
-		for (int i = fIndex; i <= lIndex; i++) {
+		for (int i = fIndex - 1; i <= lIndex - 1; i++) {
             filteredList.add(fileList.get(i));
         }
 
