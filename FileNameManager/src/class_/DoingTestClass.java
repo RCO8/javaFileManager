@@ -68,18 +68,22 @@ public class DoingTestClass implements Doing{
 	@Override
 	public void doingRemoveAll(Data db) {
 		// TODO Auto-generated method stub
+		Vector<File> newFileList = new Vector<>(db.fileList.size());
 		if (db.rootPath != null) {
             for (int i = 0; i < db.fileList.size(); i++)  {
                 if (db.fileList.get(i).isFile()) {
                     boolean deleted = db.fileList.get(i).delete();
                     if (deleted) {
                         System.out.println("파일 삭제 성공: " + db.fileList.get(i).getName());
-						db.fileList.remove(i);
+						newFileList.add(db.fileList.get(i));
                     } else {
                         System.out.println("파일 삭제 실패: " + db.fileList.get(i).getName());
                     }
                 }
             }
+			for(File f : newFileList){
+				db.fileList.remove(f);
+			}
         }
 	}
 
@@ -167,8 +171,8 @@ public class DoingTestClass implements Doing{
             if(is_name_similer >= Name.split(" ").length){
                if(tempName.contains("복사본")) is_copy += 1;
                else if(tempName.contains("사본")) is_copy += 1;
-               else if(tempName.matches(".*( [0-999] ).*")) is_copy += 1;
-               else if(tempName.matches(".*([0-999]).*")) is_copy += 1;
+               else if(tempName.matches(".*\\( [0-999] \\).*")) is_copy += 1;
+               else if(tempName.matches(".*\\([0-999]\\).*")) is_copy += 1;
             }
 			// else if(Name.contains(tempName.split(" ")[0])){
             //    if(Name.contains("복사본")) is_copy += 1;
