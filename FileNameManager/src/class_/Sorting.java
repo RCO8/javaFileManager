@@ -10,8 +10,6 @@ import inter.SortMode;
 public class Sorting implements SortMode
 {
     public void Sort(Data db, int mod, boolean is_lower){
-        int index = 0;  //비교하기 위한 파일 인덱스
-        final int getSize = db.fileList.size();
         SortComparatorLower sortNewer = new SortComparatorLower();
         SortComparatorOlder sortOlder = new SortComparatorOlder();
         SortComparatorUpper sortUpper = new SortComparatorUpper();
