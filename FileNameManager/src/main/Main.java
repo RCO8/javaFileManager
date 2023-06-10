@@ -150,7 +150,7 @@ public class Main {
 			System.out.println("\t3) 정확히 입력된 이름의 파일만 빼기");
 			System.out.println("\t4) 정확히 입력된 이름의 파일만 남기기");
 			System.out.println("\t5) 돌아가기");
-			if(!_input(1,7)) continue;
+			if(!_input(1,5)) continue;
 			
 			switch(input) {
 			case 1:
@@ -194,7 +194,7 @@ public class Main {
 			System.out.println("\t1) 날짜 범위의 파일만 남기기");
 			System.out.println("\t2) 날짜 범위의 파일만 빼기");
 			System.out.println("\t3) 돌아가기");
-			if(!_input(1,7)) continue;
+			if(!_input(1,3)) continue;
 			
 			switch(input) {
 			case 1:
@@ -316,7 +316,7 @@ public class Main {
 			System.out.println("\t1) 인덱스 범위를 빼기");
 			System.out.println("\t2) 인덱스 범위만 남기기");
 			System.out.println("\t3) 돌아가기");
-			if(!_input(1,5)) continue;
+			if(!_input(1,3)) continue;
 			
 			switch(input) {
 			case 1:
