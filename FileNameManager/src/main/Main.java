@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 import class_.DoingTestClass;
+import class_.FilterDateRange;
 import class_.FillterExtenTestClass;
 import class_.FillterIndexTestClass;
 import class_.FilterNameImpl;
@@ -38,9 +39,10 @@ public class Main {
 		filIndex = new FillterIndexTestClass();
 		filName = new FilterNameImpl();
 		sortMode = new Sorting();
+		filDbRange = new FilterDateRange();
 		/*
 		 * filName = new 클래스이름;
-		 * filDbRange = new 클래스이름;
+		 * 
 		 * filExten = new 클래스이름;
 		 * filIndex = new 클래스이름;
 		 * sortMode = new 클래스이름;
