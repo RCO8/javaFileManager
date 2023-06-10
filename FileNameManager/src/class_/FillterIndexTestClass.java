@@ -11,7 +11,7 @@ public class FillterIndexTestClass implements FillterIndex {
 	@Override
 	public void indexOrElse(Data db, int fIndex, int lIndex) {
 		//파일명 필터링 하기 전 임시 파일 리스트 
-        Vector<File> filteredList = new Vector<>();
+        Vector<File> filteredList = new Vector<>(db.fileList.size());
 		//파일 리스트를 불러옴
 		Vector<File> fileList = db.fileList;
 
@@ -35,7 +35,7 @@ public class FillterIndexTestClass implements FillterIndex {
 	@Override
 	public void indexOr(Data db, int fIndex, int lIndex) {
 		//파일명 필터링 하기 전 임시 파일 리스트 
-        Vector<File> filteredList = new Vector<>();
+        Vector<File> filteredList = new Vector<>(db.fileList.size());
 		//파일 리스트를 불러옴
 		Vector<File> fileList = db.fileList;
 

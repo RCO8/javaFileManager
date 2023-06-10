@@ -11,7 +11,7 @@ public class FillterExtenTestClass implements FillterExten {
 	@Override
 	public void extenOr(Data db, String temp) {
         //파일명 필터링 하기 전 임시 파일 리스트 
-        Vector<File> filteredList = new Vector<>();
+        Vector<File> filteredList = new Vector<>(db.fileList.size());
 
         //temp와 일치하는 파일만 filteredList에 추가함
         for (File file : db.fileList) {
@@ -33,7 +33,7 @@ public class FillterExtenTestClass implements FillterExten {
 	@Override
 	public void extenOrElse(Data db, String temp) {
         //파일명 필터링 하기 전 임시 파일 리스트 
-		Vector<File> filteredList = new Vector<>();
+		Vector<File> filteredList = new Vector<>(db.fileList.size());
 
         //temp와 일치하는 파일만 filteredList에 추가함
         for (File file : db.fileList) {
@@ -53,4 +53,3 @@ public class FillterExtenTestClass implements FillterExten {
 	}
 
 }
-//씨발 커밋좀해줘

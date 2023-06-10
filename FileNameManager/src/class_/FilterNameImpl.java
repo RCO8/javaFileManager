@@ -9,7 +9,7 @@ import java.util.Vector;
 public class FilterNameImpl implements FillterName {
     @Override
     public void nameOr(Data db, String temp) {
-        Vector<File> newFiles = new Vector<>();
+        Vector<File> newFiles = new Vector<>(db.fileList.size());
         for (File file : db.fileList) {
             boolean contains = file.getName().contains(temp);
             if (contains) {
@@ -21,7 +21,7 @@ public class FilterNameImpl implements FillterName {
 
     @Override
     public void nameOrElse(Data db, String temp) {
-        Vector<File> newFiles = new Vector<>();
+        Vector<File> newFiles = new Vector<>(db.fileList.size());
         for (File file : db.fileList) {
             boolean contains = file.getName().contains(temp);
             if (!contains) {
@@ -33,7 +33,7 @@ public class FilterNameImpl implements FillterName {
 
     @Override
     public void nameEqualElse(Data db, String temp) {
-        Vector<File> newFiles = new Vector<>();
+        Vector<File> newFiles = new Vector<>(db.fileList.size());
         for (File file : db.fileList) {
             boolean contains = file.getName().equals(temp);
             if (!contains) {
@@ -45,7 +45,7 @@ public class FilterNameImpl implements FillterName {
 
     @Override
     public void nameEqual(Data db, String temp) {
-        Vector<File> newFiles = new Vector<>();
+        Vector<File> newFiles = new Vector<>(db.fileList.size());
         for (File file : db.fileList) {
             boolean contains = file.getName().equals(temp);
             if (contains) {
