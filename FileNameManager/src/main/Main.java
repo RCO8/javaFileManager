@@ -9,6 +9,7 @@ import java.util.Scanner;
 import class_.DoingTestClass;
 import class_.FillterExtenTestClass;
 import class_.FillterIndexTestClass;
+import class_.FilterNameImpl;
 import inter.*;
 
 //TODO 인덱스 입력 받은거 파일 리스트 인덱스를 못 벗어나게 하는 기능 추가필요(변경 완료)
@@ -34,7 +35,7 @@ public class Main {
 		doing = new DoingTestClass();
 		filExten = new FillterExtenTestClass();
 		filIndex = new FillterIndexTestClass();
-		
+		filName = new FilterNameImpl();
 		/*
 		 * filName = new 클래스이름;
 		 * filDbRange = new 클래스이름;
@@ -176,7 +177,7 @@ public class Main {
 				System.out.print(">> ");
 				temp = sc.nextLine();
 				
-				filName.nameEqualElse(db, temp);
+				filName.nameEqual(db, temp);
 				break;
 			case 5:
 				return;
