@@ -1,8 +1,4 @@
 package inter;
-
-import java.io.File;
-import java.util.Vector;
-
 import main.Data;
 
 public interface Doing {
