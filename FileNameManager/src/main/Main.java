@@ -176,7 +176,7 @@ public class Main {
 				System.out.print(">> ");
 				temp = sc.nextLine();
 				
-				filName.nameEqualElse(db, temp);
+				filName.nameEqual(db, temp);
 				break;
 			case 5:
 				return;
