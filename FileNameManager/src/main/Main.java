@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import class_.DoingTestClass;
 import class_.FillterExtenTestClass;
+import class_.FillterIndexTestClass;
 import inter.*;
 
 //TODO 인덱스 입력 받은거 파일 리스트 인덱스를 못 벗어나게 하는 기능 추가필요(변경 완료)
@@ -32,6 +33,7 @@ public class Main {
 		
 		doing = new DoingTestClass();
 		filExten = new FillterExtenTestClass();
+		filIndex = new FillterIndexTestClass();
 		
 		/*
 		 * filName = new 클래스이름;
