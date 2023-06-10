@@ -10,6 +10,7 @@ import class_.DoingTestClass;
 import class_.FillterExtenTestClass;
 import class_.FillterIndexTestClass;
 import class_.FilterNameImpl;
+import class_.Sorting;
 import inter.*;
 
 //TODO 인덱스 입력 받은거 파일 리스트 인덱스를 못 벗어나게 하는 기능 추가필요(변경 완료)
@@ -36,6 +37,7 @@ public class Main {
 		filExten = new FillterExtenTestClass();
 		filIndex = new FillterIndexTestClass();
 		filName = new FilterNameImpl();
+		sortMode = new Sorting();
 		/*
 		 * filName = new 클래스이름;
 		 * filDbRange = new 클래스이름;
@@ -322,22 +324,22 @@ public class Main {
 				System.out.print(">>");
 				try {
 					fIndex = Integer.parseInt(sc.nextLine());
-					if(fIndex >= db.fileList.size()){
+					if(fIndex > db.fileList.size()){
 						System.out.println("최대 인덱스의 범위를 넘을 수 없습니다!");
 						continue;
 					}
-					if(fIndex < 0) {
+					if(fIndex <= 0) {
 						System.out.println("양의 정수를 입력해주세요!");
 						continue;
 					}
 					System.out.println("최대 인덱스를 입력해주세요!");
 					System.out.print(">>");
 					lIndex = Integer.parseInt(sc.nextLine());
-					if(lIndex >= db.fileList.size()){
+					if(lIndex > db.fileList.size()){
 						System.out.println("최대 인덱스의 범위를 넘을 수 없습니다!");
 						continue;
 					}
-					if(lIndex < 0) {
+					if(lIndex <= 0) {
 						System.out.println("양의 정수를 입력해주세요!");
 						continue;
 					}
@@ -358,21 +360,21 @@ public class Main {
 				System.out.println("최소 인덱스를 입력해주세요!");
 				try {
 					fIndex = Integer.parseInt(sc.nextLine());
-					if(fIndex >= db.fileList.size()){
+					if(fIndex > db.fileList.size()){
 						System.out.println("최대 인덱스의 범위를 넘을 수 없습니다!");
 						continue;
 					}
-					if(fIndex < 0) {
+					if(fIndex <= 0) {
 						System.out.println("양의 정수를 입력해주세요!");
 						continue;
 					}
 					System.out.println("최대 인덱스를 입력해주세요!");
 					lIndex = Integer.parseInt(sc.nextLine());
-					if(lIndex >= db.fileList.size()){
+					if(lIndex > db.fileList.size()){
 						System.out.println("최대 인덱스의 범위를 넘을 수 없습니다!");
 						continue;
 					}
-					if(lIndex < 0) {
+					if(lIndex <= 0) {
 						System.out.println("양의 정수를 입력해주세요!");
 						continue;
 					}

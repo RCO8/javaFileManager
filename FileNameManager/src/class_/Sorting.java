@@ -23,51 +23,22 @@ public class Sorting implements SortMode
                 //이름순
                 if(is_lower)    //내림차순
                 {
-                    while(db.fileList.get(getSize - 1) != null)
-                    {
-                        //
-                        if(0 < sortUpper.compare(db.fileList.get(index), db.fileList.get(index+1)))
-                        {    
-                            db.fileList.sort(sortUpper);
-                        }
-                        index++;
-                    }
+                    db.fileList.sort(sortLower);
                 }
                 else   //오름차순
                 { 
-                    while(db.fileList.get(getSize - 1) != null)
-                    {
-                        if(0 < sortLower.compare(db.fileList.get(index), db.fileList.get(index+1)))
-                        {
-                            db.fileList.sort(sortLower);
-                        }
-                        index++;
-                    }
+                    db.fileList.sort(sortUpper);
                 }
                 break;
             case 2:
                 //날짜순
                 if(is_lower)    //내림차순
                 {
-                    while(db.fileList.get(getSize - 1) != null)
-                    {
-                        if(0 < sortOlder.compare(db.fileList.get(index), db.fileList.get(index+1)))
-                        {
-                            db.fileList.sort(sortOlder);
-                        }
-                        index++;
-                    }
+                    db.fileList.sort(sortOlder);
                 }
                 else    //오름차순
                 {
-                    while(db.fileList.get(getSize - 1) != null)
-                    {
-                        if(0 < sortNewer.compare(db.fileList.get(index), db.fileList.get(index+1)))
-                        {
-                            db.fileList.sort(sortNewer);
-                        }
-                        index++;
-                    }
+                    db.fileList.sort(sortNewer);
                 }
             break;
             default:
